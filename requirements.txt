@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+sqlalchemy
+psycopg2-binary
+redis
+celery
+requests
+beautifulsoup4
+playwright
+openai
+tiktoken
+python-dotenv
+weaviate-client
