@@ -2,7 +2,9 @@
 
 > **Next-Gen Government Contracting Intelligence Platform**
 
-![GOVCONAI Banner](https://user-images.githubusercontent.com/placeholder/banner.png)
+<div align="center">
+  <img src="https://raw.githubusercontent.com/quartermasters/govconai/main/assets/banner.png" alt="GOVCONAI Banner" width="80%"/>
+</div>
 
 ---
 
@@ -111,12 +113,21 @@ govconai/
 
 ---
 
-## 👥 Team & Ownership
+## 👥 Team & Company
 
-- **Product Owner**: Haroon Haider
-- **Technical Architect**: Sumera Khan
-- **Platform Developer**: Quartermasters FZC
-- **Hosting**: AWS GovCloud / Private
+**Product Owner:** Haroon Haider  
+**Technical Architect:** Sumera Khan  
+**Leader Trainer:** Sana Rehman  
+**Platform Developer:** Quartermasters FZC  
+**Hosting:** AWS GovCloud / Private (Enterprise)
+
+---
+
+## 🏢 Ownership & Copyright
+
+Copyright © 2025 Quartermasters FZC. All rights reserved.
+
+GOVCONAI is a proprietary platform developed by the Quartermasters FZC team. All content, code, and intellectual property are owned by Quartermasters FZC and its contributors. For licensing and usage, see the [MIT License](LICENSE).
 
 ---
 
