@@ -2,10 +2,6 @@
 
 > **Next-Gen Government Contracting Intelligence Platform**
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/quartermasters/govconai/main/assets/banner.png" alt="GOVCONAI Banner" width="80%"/>
-</div>
-
 <p align="center">
   <a href="https://github.com/quartermasters/govconai/actions"><img src="https://img.shields.io/github/actions/workflow/status/quartermasters/govconai/ci.yml?branch=master&label=build" alt="Build Status"></a>
   <a href="https://github.com/quartermasters/govconai/blob/master/LICENSE"><img src="https://img.shields.io/github/license/quartermasters/govconai?color=blue" alt="License"></a>
