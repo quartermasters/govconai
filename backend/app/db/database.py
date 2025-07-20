@@ -1,15 +1,14 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from app.core.config import settings
-from app.db.models import Base # Import Base from models
+from sqlalchemy.ext.declarative import declarative_base
+import os
 
-SQLALCHEMY_DATABASE_URL = (
-    f"postgresql://{settings.POSTGRES_USER}:{settings.POSTGRES_PASSWORD}"
-    f"@{settings.POSTGRES_SERVER}/{settings.POSTGRES_DB}"
-)
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
 
 def get_db():
     db = SessionLocal()
@@ -17,6 +16,3 @@ def get_db():
         yield db
     finally:
         db.close()
-
-def create_db_and_tables():
-    Base.metadata.create_all(engine)

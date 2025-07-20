@@ -1,11 +1,8 @@
-import asyncio
 import os
 import json
-from playwright.async_api import async_playwright
-from bs4 import BeautifulSoup
-from dotenv import load_dotenv
 from datetime import datetime
-
+import httpx
+from dotenv import load_dotenv
 from app.db.crud import create_opportunity
 from app.db.models import OpportunityCreate
 from app.db.database import SessionLocal
@@ -14,65 +11,37 @@ load_dotenv()
 
 class SamGovScraper:
     def __init__(self):
-        self.base_url = "https://sam.gov/content/opportunities"
         self.api_url = "https://api.sam.gov/opportunities/v2/search"
-        self.api_key = os.getenv("SAM_GOV_API_KEY", "YOUR_SAM_GOV_API_KEY") # Placeholder
+        self.api_key = os.getenv("SAM_GOV_API_KEY", "YOUR_SAM_GOV_API_KEY")
 
     async def scrape_opportunities(self, limit=10):
-        print("Simulating SAM.gov API call...")
-        # In a real scenario, you would make an HTTP request here:
-        # import httpx
-        # async with httpx.AsyncClient() as client:
-        #     response = await client.get(self.api_url, headers={'X-API-KEY': self.api_key})
-        #     data = response.json()
-
-        # Sample API response structure (simplified)
-        sample_api_response = {
-            "_embedded": {
-                "results": [
-                    {
-                        "_id": "1",
-                        "title": "Sample Opportunity 1: IT Services",
-                        "solicitationNumber": "RFP-2025-001",
-                        "postedDate": "2025-07-15",
-                        "closeDate": "2025-08-15",
-                        "agency": "Department of Defense",
-                        "office": "Army Contracting Command",
-                        "url": "https://sam.gov/opp/12345/view"
-                    },
-                    {
-                        "_id": "2",
-                        "title": "Sample Opportunity 2: Construction Project",
-                        "solicitationNumber": "IFB-2025-002",
-                        "postedDate": "2025-07-10",
-                        "closeDate": "2025-08-20",
-                        "agency": "Department of Energy",
-                        "office": "National Renewable Energy Laboratory",
-                        "url": "https://sam.gov/opp/67890/view"
-                    }
-                ]
-            },
-            "page": {
-                "size": 2,
-                "totalElements": 2,
-                "totalPages": 1,
-                "number": 0
-            }
+        params = {
+            "limit": limit,
+            "api_key": self.api_key
         }
+        async with httpx.AsyncClient() as client:
+            response = await client.get(self.api_url, params=params)
+            if response.status_code != 200:
+                print(f"SAM.gov API error: {response.status_code} {response.text}")
+                return []
+            data = response.json()
 
         opportunities_data = []
-        if "_embedded" in sample_api_response and "results" in sample_api_response["_embedded"]:
-            for item in sample_api_response["_embedded"]["results"]:
-                opportunities_data.append({
-                    "id": item.get("_id"),
-                    "title": item.get("title"),
-                    "solicitation_number": item.get("solicitationNumber"),
-                    "posted_date": datetime.strptime(item.get("postedDate"), "%Y-%m-%d"),
-                    "close_date": datetime.strptime(item.get("closeDate"), "%Y-%m-%d"),
-                    "agency": item.get("agency"),
-                    "office": item.get("office"),
-                    "url": item.get("url")
-                })
+        if "_embedded" in data and "results" in data["_embedded"]:
+            for item in data["_embedded"]["results"]:
+                try:
+                    opportunities_data.append({
+                        "id": item.get("_id"),
+                        "title": item.get("title"),
+                        "solicitation_number": item.get("solicitationNumber"),
+                        "posted_date": datetime.strptime(item.get("postedDate"), "%Y-%m-%d"),
+                        "close_date": datetime.strptime(item.get("closeDate"), "%Y-%m-%d"),
+                        "agency": item.get("agency"),
+                        "office": item.get("office"),
+                        "url": item.get("url")
+                    })
+                except Exception as e:
+                    print(f"Error parsing opportunity: {e}")
 
         db = SessionLocal()
         for opp_data in opportunities_data:
@@ -84,7 +53,7 @@ class SamGovScraper:
                 print(f"Error saving opportunity {opp_data['title']}: {e}")
         db.close()
 
-        print(f"Simulated finding and saving {len(opportunities_data)} opportunities.")
+        print(f"Found and saved {len(opportunities_data)} opportunities from SAM.gov.")
         return opportunities_data
 
 async def main():
