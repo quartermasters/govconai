@@ -26,6 +26,7 @@
 GOVCONAI is a modular, AI-powered platform designed to decode and streamline the complex world of U.S. government contracting. Built for federal, state, and local procurement environments, GOVCONAI uses fine-tuned language models, real-time data ingestion, and specialized agents to assist contractors with opportunity discovery, compliance validation, proposal generation, and strategic forecasting.
 
 At its core, GOVCONAI combines deep domain expertise with modern AI infrastructure to help small businesses, primes, and proposal teams work smarter—not harder—in the highly regulated and competitive GovCon space.
+<<<<<<< HEAD
 
 ### Key Capabilities:
 
@@ -48,26 +49,30 @@ Includes Proposal Architect, Capture Strategist, Compliance Checker, Evaluator S
 Tracks procurement cycles, bid windows, and evaluator behaviors to guide pre-bid engagement.
 
 GOVCONAI is currently under active development by Quartermasters FZC and built for use by GovCon businesses, compliance professionals, and contracting strategists.
+=======
+>>>>>>> 315cb8c149917cb526f34193e5a8725967178c94
 
----
+### Key Capabilities:
 
-## 🧠 Core Features
+🔍 **Opportunity Ingestion Engine**  
+Pulls and parses real-time opportunities from SAM.gov, FPDS, and major state/city portals.
 
-- **Modular AI Agents**: Proposal Architect, Compliance Checker, ClauseForge, Evaluator Simulator, Pricing Analyst, and more
-- **Opportunity Intelligence Engine**: Integrates with SAM.gov, Grants.gov, FPDS, and state/city portals
-- **Predictive Analytics**: Win probability, influence window, clause risk scoring
-- **Collaboration Tools**: Role-based dashboards, live bid rooms, proposal versioning
-- **Secure & Compliant**: AES-256 encryption, NIST 800-53 aligned, RBAC
+📄 **AI-Powered Proposal Builder**  
+Drafts FAR/DFARS-compliant proposals by extracting insights from solicitation documents.
 
----
+⚖️ **ClauseForge**  
+Generates, analyzes, and scores regulatory clauses for risk, relevance, and flowdown impact.
 
-## 🏗️ Architecture
+📈 **Win Probability & Fit Scoring**  
+Predicts success likelihood based on past performance, teaming strategy, and solicitation factors.
 
-- **Frontend**: React + Tailwind (coming soon)
-- **Backend**: FastAPI, Celery, PostgreSQL, Redis, Weaviate (vector DB)
-- **LLM**: OpenAI/Mistral integration, RAG pipeline
-- **Scrapers**: Playwright-powered for federal/state portals
-- **Cloud**: AWS GovCloud-ready, Dockerized microservices
+🤖 **Agent Architecture**  
+Includes Proposal Architect, Capture Strategist, Compliance Checker, Evaluator Simulator, and more.
+
+🧩 **Predictive Forecasting**  
+Tracks procurement cycles, bid windows, and evaluator behaviors to guide pre-bid engagement.
+
+GOVCONAI is currently under active development by Quartermasters FZC and built for use by GovCon businesses, compliance professionals, and contracting strategists.
 
 ```
 [User] ⇄ [Frontend] ⇄ [FastAPI Backend] ⇄ [LLM/RAG] ⇄ [DB/Vector Store]
